@@ -1,0 +1,18 @@
+<link rel="stylesheet" href="{{ url_for('static',filename='home.css') }}">
+
+	
+	<ul class="topnav">
+	  <li><a href="/">Home</a></li>
+	  {% if current_user.is_anonymous %}
+       <li><a href="{{ url_for('main.login') }}">Login</a></li>
+       {% else %}       
+       <p><a href="{{ url_for('main.edit_profile') }}">Edit profile</a></p>
+       <li><a href="{{ url_for('main.logout') }}">Logout</a></li>
+      {% endif %}
+	</ul>
+
+	  {% block content %}
+	  {% endblock %}
+
+
+            

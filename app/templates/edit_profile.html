@@ -1,0 +1,37 @@
+<link rel="stylesheet" href="{{ url_for('static',filename='home.css') }}">
+<nav style="overflow: hidden;background-color: #333;">
+    <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #111">
+      <li><a style="float: left;display: block;color: #f2f2f2;text-align: center;padding: 14px 16px;text-decoration: none;" href="/">Home</a></li>
+      <li><a style="float: left;display: block;color: #f2f2f2;text-align: center;padding: 14px 16px;text-decoration: none;" href="/crypto">Crypto</a></li>
+      <li><a style="float: left;display: block;color: #f2f2f2;text-align: center;padding: 14px 16px;text-decoration: none;" href="/tax_sale">Tax Sale</a></li>
+      {% if current_user.is_anonymous %}
+       <li><a style="float: left;display: block;color: #f2f2f2;text-align: center;padding: 14px 16px;text-decoration: none;" href="{{ url_for('main.login') }}">Login</a></li>
+       {% else %}
+       <li><a href="/login"style="float: left;display: block;color: #f2f2f2;text-align: center;padding: 14px 16px;text-decoration: none;">My Account</a></li>       
+       <p><a style="float: left;display: block;color: #f2f2f2;text-align: center;padding: 14px 16px;text-decoration: none;" href="{{ url_for('main.edit_profile') }}">Edit profile</a></p>
+       <li><a style="float: left;display: block;color: #f2f2f2;text-align: center;padding: 14px 16px;text-decoration: none;" href="{{ url_for('main.logout') }}">Logout</a></li>
+      {% endif %}
+    </ul></nav>
+{% block content %}
+<div class="content">
+    <h1>Edit Profile</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.username.label }}<br>
+            {{ form.username(size=32) }}<br>
+            {% for error in form.username.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.about_me.label }}<br>
+            {{ form.about_me(cols=50, rows=4) }}<br>
+            {% for error in form.about_me.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+</div>
+{% endblock %}
